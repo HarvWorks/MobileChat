@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import React, { Component } from 'react';
-import { Button, TouchableHighlight, View, Text } from 'react-native';
+import { AsyncStorage, Button, TouchableHighlight, View, Text } from 'react-native';
 
 export class IndexScreen extends Component {
     constructor(props) {
@@ -9,6 +9,7 @@ export class IndexScreen extends Component {
     }
 
     logout(navigate) {
+        AsyncStorage.removeItem('myChatToken')
         navigate('Intro')
     }
 

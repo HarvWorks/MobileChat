@@ -11,6 +11,7 @@ export async function apiCall(navigate, body, path, token, viewGood, viewBad) {
             body: JSON.stringify(body)
         });
         let responseJson = await response.json();
+        console.log('response ' + responseJson);
         if (!responseJson.error && responseJson.data) {
             if (viewGood) {
                 if (token == 'token') {
@@ -33,6 +34,7 @@ export async function apiCall(navigate, body, path, token, viewGood, viewBad) {
         if (viewBad) {
             navigate(viewBad)
         }
+        console.log('error: ' + error);
         return {error: true}
     }
 }

@@ -11,11 +11,26 @@ export class SplashScreen extends Component {
 
     async _checkToken() {
         try {
-            const token = await AsyncStorage.getItem('myChatToken');
-            if (token !== null){
-                console.log(token);
-                return apiCall(this.props.navigation.navigate, this.state, 'users/login', token, 'Main', 'Intro')
+            const key = await AsyncStorage.getAllKeys();
+            var keyExists = false
+            for (i = 0, j = key.length; i < j; i++) {
+                if (key[i] == 'myChatToken') {
+                    keyExists = true
+                    break
+                }
             }
+            if (keyExists) {
+                try {
+                    const token = await AsyncStorage.getItem('myChatToken');
+                    if (token !== null){
+                        console.log('token ' + token);
+                        return apiCall(this.props.navigation.navigate, {'token': token}, 'users/token', token, 'Main', 'Intro')
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            return this._navigateTo('Intro')
         } catch (error) {
             return this._navigateTo('Intro')
         }
@@ -34,6 +49,10 @@ export class SplashScreen extends Component {
         return (
             <View style={styles.splashContainer}>
                 <Text>This is the Splash Screen.</Text>
+                    <Button
+                        title='Next'
+                        onPress={() => navigate('Intro')}
+                        />
             </View>
         );
     }
