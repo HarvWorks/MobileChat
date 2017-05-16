@@ -1,0 +1,25 @@
+{
+  "name": "mobile_chat_server",
+  "version": "1.0.0",
+  "description": "Server for the mobile chat built on React Native",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mobile"
+  ],
+  "author": "HarvMod",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-jwt": "^5.3.0",
+    "jsonwebtoken": "^7.4.0",
+    "multer": "^1.3.0",
+    "multer-s3": "^2.7.0",
+    "mysql": "^2.13.0",
+    "socket.io": "^2.0.1"
+  }
+}

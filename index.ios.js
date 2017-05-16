@@ -1,53 +1,40 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { StackNavigator, TabNavigator } from 'react-navigation';
+import { AppRegistry, Button } from 'react-native';
 
-export default class MobileChat extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
-}
+const { SplashScreen } = require('./client/views/splash.js');
+const { IntroScreen } = require('./client/views/intro.js');
+const { LoginScreen } = require('./client/views/login.js');
+const { RegisterScreen } = require('./client/views/register.js');
+const { IndexScreen } = require('./client/views/index.js');
+const { ContactsScreen } = require('./client/views/contacts.js')
+const { ChatScreen } = require('./client/views/chat.js');
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+const MainScreen = TabNavigator({
+  Recent: { screen: IndexScreen },
+  All: { screen: ContactsScreen },
 });
+
+const MainApp = StackNavigator({
+    Index: { screen: MainScreen },
+    Chat: { screen: ChatScreen },
+});
+
+const MobileChat = StackNavigator({
+    Splash:  { screen: SplashScreen },
+    Intro: { screen: IntroScreen },
+    Login: { screen: LoginScreen },
+    Register: { screen: RegisterScreen },
+    Main: { screen: MainApp}
+}, {
+    headerMode: 'screen',
+    navigationOptions: {
+        header: null
+    }
+});
+
+MainScreen.navigationOptions = {
+    title: 'My Chats',
+};
 
 AppRegistry.registerComponent('MobileChat', () => MobileChat);
