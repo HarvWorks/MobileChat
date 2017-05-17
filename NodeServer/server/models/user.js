@@ -5,9 +5,16 @@ var cert = require('../../key');
 var timeout = { expiresIn: '2h' }
 
 function UserModel(){
-	this.get_users = function(searchTerm, callback) {
-		searchTerm = searchTerm + '%'
-		connection.query("SELECT id, user_pic, username, email, created_at FROM users WHERE email LIKE ?", [searchTerm], function (err, result) {
+	this.get_users = function(searchString, callback) {
+		const searchTerm = searchString.substring(2) + '%'
+		let query = ''
+		if (searchString[0] == 'u') {
+			query = "SELECT id, user_pic, username, email, created_at FROM users WHERE email LIKE ?"
+		}
+		else if (searchString[0] == 'r') {
+			query = "SELECT id, user_pic, username, email, created_at FROM users WHERE email LIKE ?"
+		}
+		connection.query(query, [searchTerm], function (err, result) {
 			if(err){
 				callback({error: true, errors: err});
 			}

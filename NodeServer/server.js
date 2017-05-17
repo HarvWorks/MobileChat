@@ -13,7 +13,7 @@ var express     = require( 'express' ),
 app.use( express.static( path.join( root, 'client' )));
 app.use( express.static( path.join( root, 'bower_components' )));
 app.use( bp.json() );
-app.use( expressJWT( {secret: cert} ).unless({ path: [new RegExp('/app.*/', 'i') , {url: '/user', methods: ['POST']}, '/user/login']}));
+//app.use( expressJWT( {secret: cert} ).unless({ path: [new RegExp('/app.*/', 'i') , {url: '/user', methods: ['POST']}, '/user/login']}));
 
 require('./server/config/db.js');
 var routes_setter = require('./server/config/routes.js');

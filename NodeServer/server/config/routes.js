@@ -5,11 +5,8 @@ module.exports = function(app, io){
 	app.get('/', function(req, res) {
 		res.sendFile(path.join(__dirname, '../../client/index.html'));
 	});
-	app.get('/users/all', function(req, res) {
-		users.index(req, res);
-	});
-	app.get('/users/all/:searchTerm', function(req, res) {
-		users.index(req, res);
+	app.get('/search/:searchTerm', function(req, res) {
+		users.search(req, res);
 	});
 	app.get('/user/:id', function(req, res) {
 		users.show(req, res);

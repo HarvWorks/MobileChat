@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import React, { Component } from 'react';
 import { AsyncStorage, Button, TouchableHighlight, View, Text, ListView  } from 'react-native';
 import { apiCall } from '../components/apiCall.js'
@@ -8,7 +7,6 @@ const { ListUser } = require('../components/listUser.js');
 export class IndexScreen extends Component {
     constructor(props) {
         super(props);
-        this.socket = io('http://localhost:8000');
         this.state = {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2,
@@ -26,14 +24,10 @@ export class IndexScreen extends Component {
         navigate('Intro')
     }
 
-    static navigationOptions = ({ navigation }) => ({
-        title: 'All Contacts',
-    });
-
-    async checkUsers(term = '') {
+    async checkUsers(term = 'r=') {
         try {
             const token = await AsyncStorage.getItem('chatToken');
-            const allUsers = await apiCall('', 'null', 'users/recent', 'GET', token)
+            const allUsers = await apiCall('', 'null', 'search/' + term, 'GET', token)
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(allUsers)
             });

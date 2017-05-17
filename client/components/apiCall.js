@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+
 export async function apiCall(navigate, body, path, method, token, viewGood, viewBad) {
     let request = {
         method: method,

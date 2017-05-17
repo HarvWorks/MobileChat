@@ -17,8 +17,9 @@
 	<script>
 	  $(function () {
 	    var socket = io();
-        var testToken = (new Date()).getTime();
-        (socket.emit('authorization', testToken))();
+
+        var testToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNDk1MDM4NzMwLCJleHAiOjE0OTUwNDU5MzB9.wYa6sGT6CqmVuqGtfCuSBG463OpXxla7RbnjvTmDZHA";
+
 	    $('form').submit(function(){
 	      socket.emit('chat message', $('#m').val());
 	      $('#m').val('');

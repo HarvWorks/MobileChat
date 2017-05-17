@@ -28,7 +28,7 @@ const MobileChat = StackNavigator({
     Intro: { screen: IntroScreen },
     Login: { screen: LoginScreen },
     Register: { screen: RegisterScreen },
-    Main: { screen: MainApp}
+    Main: { screen: MainApp },
 }, {
     headerMode: 'screen',
     navigationOptions: {

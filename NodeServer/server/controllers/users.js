@@ -3,7 +3,7 @@ var User = require('../models/user.js');
 function UsersController(){
 	this.users = {};
 
-	this.index = function(req, res) {
+	this.search = function(req, res) {
 		if(!req.params.searchTerm) {
 			req.params.searchTerm = '';
 		}

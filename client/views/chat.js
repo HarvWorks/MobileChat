@@ -1,3 +1,4 @@
+import io from 'socket.io-client';
 import { GiftedChat } from 'react-native-gifted-chat';
 import React, { Component } from 'react';
 import { Button, TouchableHighlight, View, Text } from 'react-native';
@@ -10,6 +11,7 @@ export class ChatScreen extends Component {
             messages: []
         };
         this.onSend = this.onSend.bind(this);
+        this.socket = io('http://localhost:8000');
     };
     componentWillMount() {
         this.setState({
@@ -34,12 +36,17 @@ export class ChatScreen extends Component {
     });
 
     onSend(messages = []) {
+        console.log(messages);
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
         });
     };
+
+    socket.on('message', (message) => {
+        var oldMessages = 'moo'
+    });
 
     render() {
         return (

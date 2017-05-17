@@ -19,10 +19,10 @@ export class ContactsScreen extends Component {
         title: 'All Contacts',
     });
 
-    async checkUsers(term = '') {
+    async checkUsers(term = 'u=') {
         try {
             const token = await AsyncStorage.getItem('chatToken');
-            const allUsers = await apiCall('', 'null', 'users/all/' + term, 'GET', token)
+            const allUsers = await apiCall('', 'null', 'search/' + term, 'GET', token)
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(allUsers)
             });
