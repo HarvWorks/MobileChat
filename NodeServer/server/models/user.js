@@ -5,8 +5,9 @@ var cert = require('../../key');
 var timeout = { expiresIn: '2h' }
 
 function UserModel(){
-	this.get_users = function(callback) {
-		connection.query("SELECT * FROM users", function (err, result) {
+	this.get_users = function(searchTerm, callback) {
+		searchTerm = searchTerm + '%'
+		connection.query("SELECT id, user_pic, username, email, created_at FROM users WHERE email LIKE ?", [searchTerm], function (err, result) {
 			if(err){
 				callback({error: true, errors: err});
 			}
@@ -64,7 +65,9 @@ function UserModel(){
 				}
 				else {
 					jwt.sign({ id: result.insertId, email: user.email, iat: Math.floor(Date.now() / 1000) - 30 }, cert, timeout, function(err, token) {
-						callback({error: false, data: result, token: token});
+						connection.query("SELECT * FROM users WHERE email = ?", [user.email], function (error, result) {
+							callback({error: false, data: {id: result[0].id, email: user.email, created_at: result[0].created_at}, token: token});
+						});
 					});
 				}
 			});
@@ -122,7 +125,7 @@ function UserModel(){
 				return;
 			}
 			jwt.sign({ id: result[0].id, first_name: result[0].first_name, iat: Math.floor(Date.now() / 1000) - 30 }, cert, timeout, function(err, token) {
-				callback({error: false, data: result, token: token});
+				callback({error: false, data: {id: result[0].id, user_pic: result[0].user_pic, username: result[0].username, email: result[0].email, created_at: result[0].created_at}, token: token});
 			});
 		});
 	}

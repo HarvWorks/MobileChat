@@ -43,7 +43,7 @@ export class RegisterScreen extends Component {
                     placeholder={"Confirm Password"}
                     />
                 <TouchableHighlight
-                    onPress={() => apiCall(navigate, this.state, 'users/login', 'token', 'Main')}
+                    onPress={() => apiCall(navigate, this.state, 'user', 'POST', 'token', 'Main')}
                     style={styles.loginButton}
                     underlayColor={constants.loginButtonColor}
                     >

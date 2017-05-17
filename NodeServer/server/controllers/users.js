@@ -4,7 +4,10 @@ function UsersController(){
 	this.users = {};
 
 	this.index = function(req, res) {
-		User.get_users(function(status) {
+		if(!req.params.searchTerm) {
+			req.params.searchTerm = '';
+		}
+		User.get_users(req.params.searchTerm, function(status) {
 			var index_status = status;
 			if(index_status.error) {
 				res.json(index_status);

@@ -4,6 +4,7 @@ import { AsyncStorage, Button, TouchableHighlight, View, Text } from 'react-nati
 import { apiCall } from '../components/apiCall.js'
 const { constants, styles } = require('../styles.js')
 
+
 export class SplashScreen extends Component {
     componentDidMount () {
         this._checkToken()
@@ -14,17 +15,16 @@ export class SplashScreen extends Component {
             const key = await AsyncStorage.getAllKeys();
             var keyExists = false
             for (i = 0, j = key.length; i < j; i++) {
-                if (key[i] == 'myChatToken') {
+                if (key[i] == 'chatToken') {
                     keyExists = true
                     break
                 }
             }
             if (keyExists) {
                 try {
-                    const token = await AsyncStorage.getItem('myChatToken');
+                    const token = await AsyncStorage.getItem('chatToken');
                     if (token !== null){
-                        console.log('token ' + token);
-                        return apiCall(this.props.navigation.navigate, {'token': token}, 'users/token', token, 'Main', 'Intro')
+                        return apiCall(this.props.navigation.navigate, {'token': token}, 'user/token', 'POST', token, 'Main', 'Intro')
                     }
                 } catch (error) {
                     console.log(error);

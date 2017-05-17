@@ -100,6 +100,10 @@ export const styles = StyleSheet.create({
         color: '#0c42fd',
     },
 
+    chatContainner: {
+        flex: 1,
+    },
+
 
     container: {
         backgroundColor: '#f2f2f2',

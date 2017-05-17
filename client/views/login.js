@@ -35,7 +35,7 @@ export class LoginScreen extends Component {
                     placeholder={"Password"}
                     />
                 <TouchableHighlight
-                    onPress={() => apiCall(navigate, this.state, 'users/login', 'token', 'Main')}
+                    onPress={() => apiCall(navigate, this.state, 'user/login', 'POST', 'token', 'Main')}
                     style={styles.loginButton}
                     underlayColor={constants.loginButtonColor}
                     >
