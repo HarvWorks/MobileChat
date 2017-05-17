@@ -13,37 +13,30 @@ export class ChatScreen extends Component {
         this.onReceivedMessage = this.onReceivedMessage.bind(this);
         this.onSend = this.onSend.bind(this);
         this._storeMessages = this._storeMessages.bind(this);
+
         this.socket = io('http://localhost:8000');
         this.socket.on('chat message', this.onReceivedMessage);
+        this._checkStore()
+        this.state = {
+            token: '',
+            userData: '',
+            messages: []
+        }
     };
-
-    componentWillMount() {
-        this.setState({
-            messages: [
-                {
-                    _id: 1,
-                    text: 'Hello developer',
-                    image: 'https://facebook.github.io/react/img/logo_og.png',
-                    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-                    user: {
-                        _id: 2,
-                        name: 'React Native',
-                        avatar: 'https://facebook.github.io/react/img/logo_og.png',
-                    },
-                },
-            ],
-        });
-    }
 
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.params.user.email
     });
 
-    async _checkToken() {
-        return await AsyncStorage.getItem('chatToken');
+    async _checkStore() {
+        const token = await AsyncStorage.getItem('chatToken');
+        const userData = await AsyncStorage.getItem('userData');
+        this.setState({token:token});
+        this.setState({userData:JSON.parse(userData)});
     }
 
     _storeMessages(messages) {
+        AsyncStorage.setItem('chatLog_' + this.props.navigation.state.params.user.email, JSON.stringify(this.state.messages));
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
@@ -56,20 +49,17 @@ export class ChatScreen extends Component {
     }
 
     onSend(messages = []) {
-        console.log(messages);
         this.socket.emit('chat message', messages[0])
         this._storeMessages(messages)
     };
 
     render() {
         return (
-            <View style={styles.chatContainner} >
-                <GiftedChat
-                    messages={this.state.messages}
-                    onSend={this.onSend}
-                    user={this._checkToken()}
-                />
-            </View>
+            <GiftedChat
+                messages={this.state.messages}
+                onSend={this.onSend}
+                user={{_id: this.state.userData.id}}
+            />
         );
     }
 }

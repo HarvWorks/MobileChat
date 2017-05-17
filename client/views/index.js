@@ -47,6 +47,23 @@ export class IndexScreen extends Component {
         );
     }
 
+    async _grabChatLog(callback) {
+        const key = await AsyncStorage.getAllKeys();
+        var keyExists = false
+        for (i = 0, j = key.length; i < j; i++) {
+            if (key[i] == 'chatLog_' + user.email) {
+                keyExists = true
+                break
+            }
+        }
+        let messages = []
+        if (keyExists) {
+            rawMessages = await AsyncStorage.getItem('chatLog_' + user.email);
+            messages = JSON.parse(rawMessages)
+        }
+        return callback(messages)
+    }
+
     render() {
         return (
             <View style={styles.container}>
