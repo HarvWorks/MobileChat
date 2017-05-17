@@ -150,6 +150,7 @@ function UserModel(){
 	}
 
 	this.logMessage = function(msgData, io, callback) {
+		console.log(msgData);
 		io.emit('chat message', msgData);
 		jwt.verify(msgData.token, cert, timeout, function(err, decoded) {
 			if (err) {

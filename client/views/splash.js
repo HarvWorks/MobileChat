@@ -23,6 +23,7 @@ export class SplashScreen extends Component {
             if (keyExists) {
                 try {
                     const token = await AsyncStorage.getItem('chatToken');
+                    console.log(token);
                     if (token !== null){
                         return apiCall(this.props.navigation.navigate, {'token': token}, 'user/token', 'POST', token, 'Main', 'Intro')
                     }

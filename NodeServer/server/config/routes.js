@@ -31,17 +31,16 @@ module.exports = function(app, io){
 	});
 
 	io.on('connection', function(socket){
-		socket.on('authorization', function(token) {
-			users.onConnection(socket.id, token)
+		users.onConnection(socket.id)
 
-			socket.on('disconnect', function(){
-		    	users.onDisconnect(socket.id)
-		  	});
+		socket.on('disconnect', function(){
+	    	users.onDisconnect(socket.id)
+	  	});
 
-			socket.on('chat message', function(data){
-				users.messageRecieved(data, io)
-			});
+		socket.on('chat message', function(data){
+			console.log(data);
+			users.messageRecieved(data, io)
+		});
 
-		})
 	});
 };

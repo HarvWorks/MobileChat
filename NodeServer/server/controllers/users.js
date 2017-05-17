@@ -90,9 +90,8 @@ function UsersController(){
 		});
 	};
 
-	this.onConnection = function(id, token) {
-		this.users[token] = id
-		console.log(this.users);
+	this.onConnection = function(id) {
+		console.log('user is connected ' + id);
 	}
 
 	this.onDisconnect = function(id) {
@@ -101,13 +100,7 @@ function UsersController(){
 
 	this.messageRecieved = function(data, io) {
 		User.logMessage(data, io, function(status) {
-			var message_status = status;
-			if(message_status.error) {
-				res.json(message_status);
-			}
-			else{
-				res.json(message_status);
-			}
+			
 		});
 	}
 
