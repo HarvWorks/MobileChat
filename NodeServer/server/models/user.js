@@ -73,7 +73,9 @@ function UserModel(){
 				else {
 					jwt.sign({ id: result.insertId, email: user.email, iat: Math.floor(Date.now() / 1000) - 30 }, cert, timeout, function(err, token) {
 						connection.query("SELECT * FROM users WHERE email = ?", [user.email], function (error, result) {
-							callback({error: false, data: {id: result[0].id, email: user.email, created_at: result[0].created_at}, token: token});
+							const newUser = { id: result[0].id, email: user.email, created_at: result[0].created_at }
+							io.emit('newUser', newUser);
+							callback({error: false, data: newUser, token: token});
 						});
 					});
 				}
