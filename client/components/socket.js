@@ -5,7 +5,7 @@ import http from './http.service';
 
 class SocketService {
   connect() {
-    this.socket = IO(http.ip, { jsonp: false });
+    this.socket = IO('http://localhost:8000');
 
     //////////////////////////////////////////////////////
     //               SOCKET EVENT HANDLERS

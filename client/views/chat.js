@@ -3,6 +3,7 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import React, { Component } from 'react';
 import { AsyncStorage, Button, TouchableHighlight, View, Text } from 'react-native';
 const { constants, styles } = require('../styles.js')
+import socket from '../components/socket.js';
 
 export class ChatScreen extends Component {
     constructor(props) {
@@ -13,8 +14,6 @@ export class ChatScreen extends Component {
         this.onReceivedMessage = this.onReceivedMessage.bind(this);
         this.onSend = this.onSend.bind(this);
         this._storeMessages = this._storeMessages.bind(this);
-
-        this.socket = io('http://localhost:8000');
         this.socket.on('chat message', this.onReceivedMessage);
         this._checkStore()
         this.state = {
