@@ -14,8 +14,12 @@ export class ChatScreen extends Component {
         this.onReceivedMessage = this.onReceivedMessage.bind(this);
         this.onSend = this.onSend.bind(this);
         this._storeMessages = this._storeMessages.bind(this);
+<<<<<<< HEAD
         socket.connect();
         socket.on('chat message', this.onReceivedMessage);
+=======
+        this.socket.on('chat message', this.onReceivedMessage);
+>>>>>>> 3b3d10f3f760b3125c7cbfae223cfe7e02c2784b
         this._checkStore()
         this.state = {
             token: '',
