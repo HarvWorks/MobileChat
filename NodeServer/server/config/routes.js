@@ -37,7 +37,7 @@ module.exports = function(app, io){
 	    	users.onDisconnect(socket.id)
 	  	});
 
-		socket.on('chat message', function(data){
+		socket.on('chatMessage', function(data){
 			console.log(data);
 			users.messageRecieved(data, io)
 		});

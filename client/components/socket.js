@@ -1,11 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import IO from 'socket.io-client';
 
-import http from './http.service';
-
 class SocketService {
   connect() {
-    this.socket = IO(http.ip, { jsonp: false });
+    this.socket = IO('http://localhost:8000');
 
     //////////////////////////////////////////////////////
     //               SOCKET EVENT HANDLERS
@@ -16,6 +14,12 @@ class SocketService {
 
     this.onSent = new Observable(observer => {
       this.socket.on('sent', data => {
+        observer.next(data);
+      });
+    });
+
+    this.chatMessage = new Observable(observer => {
+      this.socket.on('chatMessage', data => {
         observer.next(data);
       });
     });

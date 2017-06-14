@@ -21,7 +21,7 @@
                     if ( $('#m').val() != '')
                     var date = new Date();
                     var milliseconds = date.getTime()
-                    socket.emit('chat message', {_id:1, text:$('#m').val(), user: {_id:2}, createdAt: date, _id: milliseconds});
+                    socket.emit('chatMessage', {_id:1, text:$('#m').val(), user: {_id:2}, createdAt: date, _id: milliseconds});
                     $('#m').val('');
                     return false;
         	    });
